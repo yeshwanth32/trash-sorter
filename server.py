@@ -6,11 +6,14 @@ from PIL import Image
 # Start a socket listening for connections on 0.0.0.0:8000 (0.0.0.0 means
 # all interfaces)
 server_socket = socket.socket()
-server_socket.bind(('0.0.0.0', 8000))
+host = socket.gethostname()
+port = 80
+server_socket.bind(('0.0.0.0', port))
+print("listening....", host, ":", port)
 server_socket.listen(0)
-
 # Accept a single connection and make a file-like object out of it
 connection = server_socket.accept()[0].makefile('rb')
+print("connected")
 try:
     while True:
         # Read the length of the image as a 32-bit unsigned int. If the
@@ -29,6 +32,8 @@ try:
         print('Image is %dx%d' % image.size)
         image.verify()
         print('Image is verified')
+
 finally:
+    print("closing")
     connection.close()
     server_socket.close()
