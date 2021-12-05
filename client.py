@@ -5,6 +5,7 @@ import socket
 import struct
 import time
 import picamera
+import sleep
 
 camera = picamera.PiCamera()
 
