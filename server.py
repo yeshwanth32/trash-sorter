@@ -46,9 +46,10 @@ class Server:
     #         #threading.Thread(target=self.handle_client,args=(c,addr,)).start()
 
     def handle_client(self,c,addr):
-        file_name = "temp"
-        write_name = 'from_server '+file_name
-        if os.path.exists(write_name): os.remove(write_name)
+        file_name = "_temp.jpg"
+        write_name = 'from_server'+file_name
+        if os.path.exists(write_name): 
+            os.remove(write_name)
 
         with open(write_name,'wb') as file:
             while 1:
