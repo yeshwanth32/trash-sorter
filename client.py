@@ -29,10 +29,10 @@ class Client:
             # transfer picture to client
             input("Press Enter to continue...")
             with open("lena.png",'rb') as file:
-                data = file.read(1024)
+                data = file.read(1)
                 while data:
                     self.s.sendall(data)
-                    data = file.read(1024)
+                    data = file.read(1)
             
             self.s.shutdown(socket.SHUT_RDWR)
             self.s.close()
