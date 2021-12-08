@@ -53,7 +53,8 @@ def image2tensor(image):
     npim = image2np(image)
     return np.expand_dims(npim, axis=0)
 
-def detect_picture(detection_graph, test_image_path):
+def detect_picture(test_image_path):
+    detection_graph = reconstruct('frozen_inference_graph_taco.pb')
     with detection_graph.as_default():
         gpu_options = tf.compat.v1.GPUOptions(per_process_gpu_memory_fraction=0.01)
         with tf.compat.v1.Session(graph=detection_graph,config=tf.compat.v1.ConfigProto(gpu_options=gpu_options)) as sess:
@@ -68,7 +69,7 @@ def detect_picture(detection_graph, test_image_path):
                 [detection_boxes, detection_scores, detection_classes, num_detections],
                 feed_dict={image_tensor: image2tensor(image)}
             )
-            print(np.squeeze(scores))
+            print(num_detections)
             npim = image2np(image)
             vis_util.visualize_boxes_and_labels_on_image_array(
                 npim,
@@ -78,7 +79,7 @@ def detect_picture(detection_graph, test_image_path):
                 category_index,
                 use_normalized_coordinates=True,
                 line_thickness=30,
-                min_score_thresh=.6)
+                min_score_thresh=.5)
             temp = [category_index.get(i) for i in classes[0]]
             print(temp)
             for i in range(0, len(temp)):
@@ -90,8 +91,6 @@ def detect_picture(detection_graph, test_image_path):
             plt.imshow(npim, interpolation='nearest')
             plt.savefig("taco_test.jpg")
 
-trained_detection_graph = reconstruct('frozen_inference_graph_taco.pb')
-detect_picture(trained_detection_graph, 'C:\\Users\\yeshw\\OneDrive\\Desktop\\Desktop\\Umass\\UMass\\Umass\\CICS256\\final_project\\trash_sorter\\trash-sorter\\cup.jpg')
+#detect_picture(trained_detection_graph, 'C:\\Users\\yeshw\\OneDrive\\Desktop\\Desktop\\Umass\\UMass\\Umass\\CICS256\\final_project\\trash_sorter\\trash-sorter\\cup.jpg')
 
-if __name__ == "__main__":
     

@@ -17,12 +17,29 @@ class Server:
 
         print('Running on IP: '+ip)
         print('Running on port: '+str(port))
+        self.main
+
+       
+    def main(self):
+        c, addr = self.s.accept()
+        print(c, ":", addr)
 
         while 1:
-            c, addr = self.s.accept()
-            print(c)
+
+        # listen for ultrasonic distance sensor call
+        # once that's done take a picture
+        # transfer picture to client
+            input("Press Enter to continue...")
+            file = open("cup.jpg",'rb')
+            data = file.read(1024)
+            while data:
+                c.send(data)
+                data = file.read(1024)
+
+            c.shutdown(socket.SHUT_RDWR)
+            c.close()
             
-            threading.Thread(target=self.handle_client,args=(c,addr,)).start()
+            #threading.Thread(target=self.handle_client,args=(c,addr,)).start()
 
     def handle_client(self,c,addr):
         data = c.recv(1024).decode()
