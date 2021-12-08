@@ -1,6 +1,6 @@
 import socket
 import os
-from obj_test import *
+
 
 class Client:
     def __init__(self):
@@ -12,6 +12,7 @@ class Client:
         self.target_port = input('Enter port --> ')
 
         self.s.connect((self.target_ip,int(self.target_port)))
+        print("connected...")
 
         self.main()
 

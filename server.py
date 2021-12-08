@@ -1,6 +1,7 @@
 import socket
 import threading
 import os
+from obj_test import *
 
 class Server:
     def __init__(self):
