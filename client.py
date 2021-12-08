@@ -28,7 +28,7 @@ class Client:
             # once that's done take a picture
             # transfer picture to client
             input("Press Enter to continue...")
-            with open("cup.jpg",'rb') as file:
+            with open("lena.png",'rb') as file:
                 data = file.read(1024)
                 while data:
                     self.s.sendall(data)
