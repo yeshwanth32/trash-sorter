@@ -45,8 +45,8 @@ class Server:
                 file.write(data)
 
         print(file_name,'successfully downloaded.')
-        output = detect_picture("from_server_temp.png")
-        print(output)
+        #output = detect_picture("from_server_temp.png")
+        #print(output)
         c.shutdown(socket.SHUT_RDWR)
         c.close()
                 
