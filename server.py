@@ -17,7 +17,7 @@ class Server:
 
         print('Running on IP: '+ip)
         print('Running on port: '+str(port))
-        self.main
+        self.main()
 
        
     def main(self):
