@@ -8,7 +8,8 @@ class Server:
         self.accept_connections()
     
     def accept_connections(self):
-        ip = socket.gethostbyname(socket.gethostname())
+        #ip = socket.gethostbyname(socket.gethostname())
+        ip = "192.168.114.208"
         port = int(input('Enter desired port --> '))
 
         self.s.bind((ip,port))
