@@ -39,11 +39,10 @@ class Server:
 
         with open(write_name,'wb') as file:
             while 1:
-                data = c.recv(1)
+                data = c.recv(1024)
                 if not data:
                     break
                 file.write(data)
-            file.close()
 
         print(file_name,'successfully downloaded.')
         output = detect_picture("from_server_temp.png")
