@@ -8,8 +8,8 @@ class Server:
         self.accept_connections()
     
     def accept_connections(self):
-        #ip = socket.gethostbyname(socket.gethostname())
-        ip = "192.168.114.208"
+        ip = socket.gethostbyname(socket.gethostname())
+        #ip = "192.168.114.208"
         port = int(input('Enter desired port --> '))
 
         self.s.bind((ip,port))
@@ -17,48 +17,48 @@ class Server:
 
         print('Running on IP: '+ip)
         print('Running on port: '+str(port))
-        self.main()
+        while 1:
+            c, addr = self.s.accept()
+            print(c, " ,", addr)
+            threading.Thread(target=self.handle_client,args=(c,addr,)).start()
 
        
-    def main(self):
-        c, addr = self.s.accept()
-        print(c, ":", addr)
+    # def main(self):
+    #     c, addr = self.s.accept()
+    #     print(c, ":", addr)
 
-        while 1:
+    #     while 1:
 
-        # listen for ultrasonic distance sensor call
-        # once that's done take a picture
-        # transfer picture to client
-            input("Press Enter to continue...")
-            file = open("cup.jpg",'rb')
-            data = file.read(1024)
-            while data:
-                c.send(data)
-                data = file.read(1024)
+    #     # listen for ultrasonic distance sensor call
+    #     # once that's done take a picture
+    #     # transfer picture to client
+    #         input("Press Enter to continue...")
+    #         file = open("cup.jpg",'rb')
+    #         data = file.read(1024)
+    #         while data:
+    #             c.send(data)
+    #             data = file.read(1024)
 
-            c.shutdown(socket.SHUT_RDWR)
-            c.close()
+    #         c.shutdown(socket.SHUT_RDWR)
+    #         c.close()
             
-            #threading.Thread(target=self.handle_client,args=(c,addr,)).start()
+    #         #threading.Thread(target=self.handle_client,args=(c,addr,)).start()
 
     def handle_client(self,c,addr):
-        data = c.recv(1024).decode()
-    
-        if not os.path.exists(data):
-            c.send("file-doesn't-exist".encode())
+        file_name = "temp"
+        write_name = 'from_server '+file_name
+        if os.path.exists(write_name): os.remove(write_name)
 
-        else:
-            c.send("file-exists".encode())
-            print('Sending',data)
-            if data != '':
-                file = open(data,'rb')
-                data = file.read(1024)
-                while data:
-                    c.send(data)
-                    data = file.read(1024)
+        with open(write_name,'wb') as file:
+            while 1:
+                data = c.recv(1024)
+                if not data:
+                    break
+                file.write(data)
 
-                c.shutdown(socket.SHUT_RDWR)
-                c.close()
+        print(file_name,'successfully downloaded.')
+        c.shutdown(socket.SHUT_RDWR)
+        c.close()
                 
 
 server = Server()

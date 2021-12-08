@@ -21,22 +21,16 @@ class Client:
 
     def main(self):
         while 1:
-            file_name = "temp"
-            write_name = 'from_server '+file_name
-            if os.path.exists(write_name): os.remove(write_name)
-
-            with open(write_name,'wb') as file:
-                while 1:
-                    data = self.s.recv(1024)
-
-                    if not data:
-                        break
-
-                    file.write(data)
-
-            print(file_name,'successfully downloaded.')
-            output = detect_picture("from_servertemp")
-            print(output)
+            # listen for ultrasonic distance sensor call
+            # once that's done take a picture
+            # transfer picture to client
+            input("Press Enter to continue...")
+            file = open("cup.jpg",'rb')
+            data = file.read(1024)
+            while data:
+                self.s.send(data)
+                data = file.read(1024)
+            
             self.s.shutdown(socket.SHUT_RDWR)
             self.s.close()
             self.reconnect()
