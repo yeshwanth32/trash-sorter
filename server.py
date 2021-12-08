@@ -10,8 +10,9 @@ class Server:
     
     def accept_connections(self):
         ip = socket.gethostbyname(socket.gethostname())
+        port = 7425
         #ip = "192.168.114.208"
-        port = int(input('Enter desired port --> '))
+        #port = int(input('Enter desired port --> '))
 
         self.s.bind((ip,port))
         self.s.listen(100)
@@ -48,8 +49,10 @@ class Server:
     def handle_client(self,c,addr):
         file_name = "_temp.jpg"
         write_name = 'from_server'+file_name
-        if os.path.exists(write_name): 
-            os.remove(write_name)
+        try:
+            os.remove('from_server_temp.jpg')
+        except:
+            print("Error while deleting file ", write_name)
 
         with open(write_name,'wb') as file:
             while 1:

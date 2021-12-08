@@ -8,7 +8,8 @@ class Client:
         self.connect_to_server()
 
     def connect_to_server(self):
-        self.target_ip = input('Enter ip --> ')
+        self.target_ip = "192.168.114.166"
+        #self.target_ip = input('Enter ip --> ')
         self.target_port = input('Enter port --> ')
 
         self.s.connect((self.target_ip,int(self.target_port)))
