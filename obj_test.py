@@ -83,8 +83,7 @@ def detect_picture(detection_graph, test_image_path):
             print(temp)
             for i in range(0, len(temp)):
                 if (temp[i] != None):
-                    print(temp[i])
-                    break
+                    return temp[i]
             
             plt.figure(figsize=(12, 8))
             #cv2.imshow("Output",npim)
@@ -94,3 +93,5 @@ def detect_picture(detection_graph, test_image_path):
 trained_detection_graph = reconstruct('frozen_inference_graph_taco.pb')
 detect_picture(trained_detection_graph, 'C:\\Users\\yeshw\\OneDrive\\Desktop\\Desktop\\Umass\\UMass\\Umass\\CICS256\\final_project\\trash_sorter\\trash-sorter\\cup.jpg')
 
+if __name__ == "__main__":
+    
