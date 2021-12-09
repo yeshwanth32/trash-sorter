@@ -1,4 +1,4 @@
 from gpiozero import Motor
 
-motor = Motor(17, 18)
+motor = Motor(17, 26)
 motor.forward()
