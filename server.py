@@ -36,7 +36,7 @@ class Server:
         #     os.remove('from_server_temp.jpg')
         # except:
         #     print("Error while deleting file ", write_name)
-
+        image_size = c.recv()
         with open(write_name,'wb') as file:
             while 1:
                 data = c.recv(1024)
