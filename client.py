@@ -5,6 +5,8 @@ from picamera import PiCamera
 from time import sleep
 
 pir = MotionSensor(26)
+camera = PiCamera()
+
 class Client:
     def __init__(self):
         self.s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -35,7 +37,7 @@ class Client:
             pir.wait_for_no_motion()
             print("Waiting for motion")
             pir.wait_for_motion()
-            sleep(5)
+            sleep(3)
             camera.capture('camera_image.jpg')
             print("captured image....")
             print("transmitting image....")
