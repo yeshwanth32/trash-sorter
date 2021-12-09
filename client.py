@@ -31,10 +31,14 @@ class Client:
             # once that's done take a picture
             # transfer picture to client
             #input("Press Enter to continue...")
+            print("Waiting for no motion")
             pir.wait_for_no_motion()
+            print("Waiting for motion")
             pir.wait_for_motion()
             sleep(5)
             camera.capture('camera_image.jpg')
+            print("captured image....")
+            print("transmitting image....")
             with open("camera_image.png",'rb') as file:
                 data = file.read(1024)
                 while data:
