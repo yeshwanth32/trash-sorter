@@ -2,8 +2,8 @@
 from npsocket import SocketNumpyArray
 #import cv2
 
-# cap = cv2.VideoCapture(0)
-# sock_sender = SocketNumpyArray()
+#cap = cv2.VideoCapture(0)
+sock_sender = SocketNumpyArray()
 
 sock_sender.initialize_sender('192.168.114.166', 9999)
 image = PIL.Image.open("cup.jpg")

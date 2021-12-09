@@ -1,10 +1,14 @@
 
 import cv2
 from npsocket import SocketNumpyArray
+from PIL import Image
 
 sock_receiver = SocketNumpyArray()
-sock_receiver.initalize_receiver(9999)
-frame = sock_receiver.receive_array()
-# Display
-cv2.imshow('frame', frame)
-cv2.waitKey(1)
+sock_receiver.initalize_receiver(7245)
+
+
+frame = sock_receiver.receive_array()  # Receiving the image as numpy array. 
+pil_image=Image.fromarray(frame)
+pil_image.show()
+response = [1]
+sock_receiver.send_numpy_array(response)
