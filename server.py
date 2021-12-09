@@ -52,7 +52,7 @@ class Server:
         #     print("Error while deleting file ", write_name)
         image_size = c.recv(16)
         image = c.recv(int(image_size))
-        
+        print(image_size)
         # with open(write_name,'wb') as file:
         #     while 1:
         #         data = c.recv(1024)
@@ -60,7 +60,7 @@ class Server:
         #             break
         #         file.write(data)
 
-        print(file_name,'successfully downloaded.')
+        #print(file_name,'successfully downloaded.')
         #output = detect_picture("from_server_temp.png")
         #print(output)
         c.shutdown(socket.SHUT_RDWR)

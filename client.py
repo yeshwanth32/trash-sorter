@@ -85,8 +85,10 @@ class Client:
             print("Waiting for motion")
             print("motion detected...camera warming up")
             pir.wait_for_motion()
+            camera.start_preview()
             sleep(3)
             camera.capture('camera_image.jpg')
+            camera.stop_preview()
             print("captured image....")
             print("transmitting image....")
             img = open('camera_image.jpg', 'rb')
@@ -106,16 +108,16 @@ class Client:
             sleep(5)
             print("received response")
             recycling = True
-            if (recycling):
-                forward()
-                sleep(6)
-                stop()
-                exit()
-            else:
-                backward()
-                sleep(6)
-                stop()
-                exit()
+            # if (recycling):
+            #     forward()
+            #     sleep(6)
+            #     stop()
+            #     exit()
+            # else:
+            #     backward()
+            #     sleep(6)
+            #     stop()
+            #    exit()
             # self.s.shutdown(socket.SHUT_RDWR)
             # self.s.close()
             # self.reconnect()
