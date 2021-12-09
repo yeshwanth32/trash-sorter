@@ -1,0 +1,70 @@
+# piscope: a digital waveform viewer for the Raspberry
+
+# Extract the archive to a directory
+
+tar xvf piscope.tar
+
+# In that directory
+
+cd PISCOPE
+
+# To utilise a pre-built executable use one of the following make commands
+
+make hf     # to run on a Pi
+make x86_64 # to run on a 64 bit Linux PC
+
+# To build the executable from source
+
+# If you can edit the packages to be downloaded and remove any
+# packages with names ending in -dbg.  That will significantly
+# reduce the amount of SD card space needed.
+
+sudo apt-get install gtk+-3.0 # may take a long time
+
+# On Debian 9 (Stretch):
+
+sudo apt-get install libgtk-3-dev
+
+make
+
+# to install
+
+make install
+
+# which installs
+# - the executable (piscope) to /usr/local/bin
+# - the ui definition(piscope.glade) to /usr/share/piscope
+
+# To run you need the pigpio daemon
+
+wget https://github.com/joan2937/pigpio/archive/master.zip
+unzip master.zip
+cd pigpio-master
+make
+sudo make install
+
+# On the Pi
+
+sudo pigpiod # launch the pigpio daemon
+
+# If running piscope on another machine you have 2 ways to connect:
+
+# 1) Set the remote address via environment variables BEFORE launching piscope
+
+  export PIGPIO_ADDR=host # where host is the Pi's hostname
+
+  # or
+
+  export PIGPIO_ADDR=x.x.x.x # where x.x.x.x is the Pi's IP address.
+
+  # then
+
+  piscope &
+
+# 2) Set the remote address in the preferences dialog
+
+  piscope &
+
+  # then open the preferences dialog and set Pi's hostname/address
+  # Note: if set, the PIGPIO_ADDR environment variable takes precedence
+
