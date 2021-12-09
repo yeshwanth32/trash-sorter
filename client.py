@@ -36,12 +36,13 @@ class Client:
             print("Waiting for no motion")
             pir.wait_for_no_motion()
             print("Waiting for motion")
+            print("motion detected...camera warming up")
             pir.wait_for_motion()
             sleep(3)
             camera.capture('camera_image.jpg')
             print("captured image....")
             print("transmitting image....")
-            with open("camera_image.png",'rb') as file:
+            with open("camera_image.jpg",'rb') as file:
                 data = file.read(1024)
                 while data:
                     self.s.send(data)
