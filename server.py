@@ -2,6 +2,11 @@ import socket
 import threading
 import os
 from obj_test import *
+from PIL import Image
+from numpy import asarray
+
+# from npsocket import SocketNumpyArray
+# sock_receiver = SocketNumpyArray()
 
 class Server:
     def __init__(self):
@@ -23,7 +28,9 @@ class Server:
         #     os.remove('from_server_temp.jpg')
         # except:
         #     print("Error while deleting file ")
+        #sock_receiver.initalize_receiver(9999)
         while 1:
+            #frame = sock_receiver.receive_array()
             c, addr = self.s.accept()
             print(c, " ,", addr)
             threading.Thread(target=self.handle_client,args=(c,addr,)).start()

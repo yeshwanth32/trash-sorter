@@ -3,10 +3,9 @@ import os
 from gpiozero import MotionSensor
 from picamera import PiCamera
 from time import sleep
-
 pir = MotionSensor(26)
 camera = PiCamera()
-
+#https://github.com/ekbanasolutions/numpy-using-socket.git
 import RPi.GPIO as GPIO          
 from time import sleep
 
@@ -86,7 +85,7 @@ class Client:
             print("motion detected...camera warming up")
             pir.wait_for_motion()
             camera.start_preview()
-            sleep(3)
+            sleep(1)
             camera.capture('camera_image.jpg')
             camera.stop_preview()
             print("captured image....")
