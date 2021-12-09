@@ -10,12 +10,12 @@ mode=GPIO.getmode()
 print " mode ="+str(mode)
 GPIO.cleanup()
 
-# Define GPIO signals to use - not me
-# Physical pins 11,15,16,18 - not me
-# GPIO17,GPIO22,GPIO23,GPIO24 - not me
+# Define GPIO signals to use
+# Physical pins 11,15,16,18
+# GPIO17,GPIO22,GPIO23,GPIO24
 
-StepPinForward=6
-StepPinBackward=13
+StepPinForward=16
+StepPinBackward=18
 sleeptime=1
 
 GPIO.setmode(GPIO.BOARD)
@@ -41,3 +41,11 @@ reverse(5)
 
 print "Stopping motor"
 GPIO.cleanup()
+
+
+
+'''from gpiozero import Motor
+
+motor = Motor(17, 26)
+motor.forward()
+'''
