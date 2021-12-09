@@ -1,7 +1,10 @@
 import socket
 import os
+from gpiozero import MotionSensor
+from picamera import PiCamera
+from time import sleep
 
-
+pir = MotionSensor(26)
 class Client:
     def __init__(self):
         self.s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -27,8 +30,12 @@ class Client:
             # listen for ultrasonic distance sensor call
             # once that's done take a picture
             # transfer picture to client
-            input("Press Enter to continue...")
-            with open("lena.png",'rb') as file:
+            #input("Press Enter to continue...")
+            pir.wait_for_no_motion()
+            pir.wait_for_motion()
+            sleep(5)
+            camera.capture('camera_image.jpg')
+            with open("camera_image.png",'rb') as file:
                 data = file.read(1024)
                 while data:
                     self.s.send(data)
