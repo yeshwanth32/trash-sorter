@@ -7,6 +7,53 @@ from time import sleep
 pir = MotionSensor(26)
 camera = PiCamera()
 
+import RPi.GPIO as GPIO          
+from time import sleep
+
+in1 = 24
+in2 = 23
+en = 25
+temp1=1
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(in1,GPIO.OUT)
+GPIO.setup(in2,GPIO.OUT)
+GPIO.setup(en,GPIO.OUT)
+GPIO.output(in1,GPIO.LOW)
+GPIO.output(in2,GPIO.LOW)
+p=GPIO.PWM(en,1000)
+
+print("\n")
+print("The default speed & direction of motor is LOW & Forward.....")
+print("r-run s-stop f-forward b-backward l-low m-medium h-high e-exit")
+print("\n")    
+
+def stop():
+    print("stop")
+    GPIO.output(in1,GPIO.LOW)
+    GPIO.output(in2,GPIO.LOW)
+    x='z'
+
+def forward():
+    print("forward")
+    GPIO.output(in1,GPIO.HIGH)
+    GPIO.output(in2,GPIO.LOW)
+
+def backward():
+    print("backward")
+    GPIO.output(in1,GPIO.LOW)
+    GPIO.output(in2,GPIO.HIGH)
+
+def run():
+    print("run")
+    GPIO.output(in1,GPIO.HIGH)
+    GPIO.output(in2,GPIO.LOW)
+    #forward()
+
+def exit():
+    GPIO.cleanup()
+    print("GPIO Clean up")
+
 class Client:
     def __init__(self):
         self.s = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
@@ -42,14 +89,35 @@ class Client:
             camera.capture('camera_image.jpg')
             print("captured image....")
             print("transmitting image....")
-            with open("camera_image.jpg",'rb') as file:
-                data = file.read(1024)
-                while data:
-                    self.s.send(data)
-                    data = file.read(1024)
-            
-            self.s.shutdown(socket.SHUT_RDWR)
-            self.s.close()
-            self.reconnect()
+            img = open('camera_image.jpg', 'rb')
+            b_img = img.read()
+            imgsize = len(b_img)
+            print("sending image size")
+            print(str(imgsize))
+            # self.c.sendall(bytes(str(imgsize), "utf-8"))
+            print("sending image")
+            # self.c.sendall(b_img)
+            # img.close()
+            # # with open("camera_image.jpg",'rb') as file:
+            # #     data = file.read(1024)
+            # #     while data:
+            # #         self.s.send(data)
+            # #         data = file.read(1024)
+            sleep(5)
+            print("received response")
+            recycling = True
+            if (recycling):
+                forward()
+                sleep(6)
+                stop()
+                exit()
+            else:
+                backward()
+                sleep(6)
+                stop()
+                exit()
+            # self.s.shutdown(socket.SHUT_RDWR)
+            # self.s.close()
+            # self.reconnect()
                 
 client = Client()

@@ -69,7 +69,7 @@ def detect_picture(test_image_path):
                 [detection_boxes, detection_scores, detection_classes, num_detections],
                 feed_dict={image_tensor: image2tensor(image)}
             )
-            print(num_detections)
+            #print(num_detections)
             npim = image2np(image)
             vis_util.visualize_boxes_and_labels_on_image_array(
                 npim,
@@ -81,7 +81,7 @@ def detect_picture(test_image_path):
                 line_thickness=30,
                 min_score_thresh=.5)
             temp = [category_index.get(i) for i in classes[0]]
-            print(temp)
+            #print(temp)
             for i in range(0, len(temp)):
                 if (temp[i] != None):
                     return temp[i]
@@ -91,6 +91,6 @@ def detect_picture(test_image_path):
             plt.imshow(npim, interpolation='nearest')
             plt.savefig("taco_test.jpg")
 
-#detect_picture(trained_detection_graph, 'C:\\Users\\yeshw\\OneDrive\\Desktop\\Desktop\\Umass\\UMass\\Umass\\CICS256\\final_project\\trash_sorter\\trash-sorter\\cup.jpg')
+print(detect_picture('C:\\Users\\yeshw\\OneDrive\\Desktop\\Desktop\\Umass\\UMass\\Umass\\CICS256\\final_project\\trash_sorter\\trash-sorter\\cup.jpg'))
 
     
